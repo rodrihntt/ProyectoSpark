@@ -4,7 +4,7 @@ import random
 from datetime import datetime, timedelta
 
 # Configuración de parámetros
-num_rows = 1000000  # Número de filas de datos
+num_rows = 10000  # Número de filas de datos
 null_percentage = 0.01  # Porcentaje de valores nulos
 
 # Función para generar fechas aleatorias en un rango
@@ -49,6 +49,6 @@ df['Revenue'].iloc[205] = np.nan
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce').dt.strftime('%Y-%m-%d')
 
 # Guardar DataFrame en un archivo CSV
-df.to_csv('sales_data.csv', index=False, sep=',')
+df.to_csv('data/sales_data.csv', index=False, sep=',')
 
 print("Archivo 'sales_data.csv' creado con éxito.")

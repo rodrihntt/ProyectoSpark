@@ -41,7 +41,7 @@ RUN mkdir -p $SPARK_LOG_DIR && \
     ln -sf /dev/stdout $SPARK_MASTER_LOG && \
     ln -sf /dev/stdout $SPARK_WORKER_LOG
 
-COPY start-spark.sh /
+COPY /scripts/start-spark.sh /
 RUN sed -i 's/\r$//g' /start-spark.sh
 RUN chmod +x /start-spark.sh
 

@@ -3,7 +3,7 @@ services:
   spark-master:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./docker/spark/Dockerfile
     ports:
       - "9090:8080"
       - "7077:7077"
@@ -17,7 +17,7 @@ services:
   spark-worker-a:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./docker/spark/Dockerfile
     ports:
       - "9091:8080"
       - "7000:7000"
@@ -31,7 +31,6 @@ services:
       - SPARK_EXECUTOR_MEMORY=1G
       - SPARK_WORKLOAD=worker
       - SPARK_LOCAL_IP=spark-worker-a
-
     volumes:
       - ./apps:/opt/spark-apps
       - ./data:/opt/spark-data
@@ -39,7 +38,7 @@ services:
   spark-worker-b:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./docker/spark/Dockerfile
     ports:
       - "9095:8080"
       - "7001:7000"
@@ -66,6 +65,7 @@ services:
 
   kafka:
     image: wurstmeister/kafka:latest
+    hostname: kafka
     container_name: kafka
     ports:
       - "9092:9092"
@@ -86,3 +86,17 @@ services:
     container_name: zookeeper
     ports:
       - "2181:2181"
+
+  delta-lake:
+    image: deltaio/delta-docker
+    container_name: delta-lake
+    ports:
+      - "8888:8888"
+
+  debian:
+    build:
+      context: .
+      dockerfile: ./docker/debian/Dockerfile
+    container_name: dataSender
+    ports:
+      - "9998:9999"

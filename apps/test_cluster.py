@@ -3,6 +3,11 @@ import random
 import string
 from pyspark.sql import SparkSession
 
+def get_random_string(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))
+
+
 # Count words using PySpark
 def count_words(filename):
     spark = SparkSession.builder \
@@ -13,11 +18,13 @@ def count_words(filename):
     word_counts = lines.flatMap(lambda line: line.split(" ")) \
                        .map(lambda word: (word, 1)) \
                        .reduceByKey(lambda a, b: a + b)
-    
-    word_counts.saveAsTextFile("/opt/spark-data/result.txt")
+        
+    word_counts.saveAsTextFile(f"/opt/spark-data/{get_random_string(8)}.txt")
     
     spark.stop()
 
 if __name__ == "__main__":
     filename = "random_text.txt"
     count_words(f'/opt/spark-data/{filename}')
+
+

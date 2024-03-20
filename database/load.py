@@ -6,11 +6,11 @@ def insert_data(data):
     try:
         # Establishing connection to PostgreSQL database
         connection = psycopg2.connect(
-            user="userbda",
-            password="password",
+            user="postgres",
+            password="casa1234",
             host="localhost",
             port="5432",
-            database="ejemploread"
+            database="retail_db"
         )
 
         # Creating a cursor object using the cursor() method

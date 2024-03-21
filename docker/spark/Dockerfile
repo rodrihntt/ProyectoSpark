@@ -6,6 +6,10 @@ RUN apt-get update && apt-get install -y curl vim wget software-properties-commo
 RUN update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 
 RUN pip3 install pyspark
+
+# Install LocalStack
+RUN pip3 install localstack
+
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
 ENV SPARK_VERSION=3.5.1 \
@@ -45,5 +49,5 @@ COPY /scripts/start-spark.sh /
 RUN sed -i 's/\r$//g' /start-spark.sh
 RUN chmod +x /start-spark.sh
 
-
-CMD ["/bin/bash", "/start-spark.sh"]
+# Start LocalStack and Apache Spark
+CMD ["localstack", "start", "&", "/bin/bash", "/start-spark.sh"]

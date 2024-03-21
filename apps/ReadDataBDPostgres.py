@@ -9,7 +9,7 @@ def read_from_postgres():
         .getOrCreate()
 
     # Define connection properties
-    jdbc_url = "jdbc:postgresql://spark-database-1:5432/retail_db"
+    jdbc_url = "jdbc:postgresql://proyectospark-database-1:5432/retail_db"
     connection_properties = {
         "user": "postgres",
         "password": "casa1234",
@@ -17,7 +17,7 @@ def read_from_postgres():
     }
 
     # Define table name
-    table_name = "ExampleData"
+    table_name = "Stores"
 
     try:
         # Read data from PostgreSQL table into a DataFrame

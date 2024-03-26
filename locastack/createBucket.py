@@ -9,7 +9,7 @@ s3 = boto3.client(
 )
 
 # Define the bucket name
-bucket_name = 'new-sample-bucket'
+bucket_name = 'bucket-rodrigo'
 
 # Create the bucket
 s3.create_bucket(Bucket=bucket_name)

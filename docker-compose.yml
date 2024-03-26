@@ -87,27 +87,16 @@ services:
     ports:
       - "2181:2181"
 
-  delta-lake:
-    image: deltaio/delta-docker
-    container_name: delta-lake
-    ports:
-      - "8888:8888"
-
-  debian:
-    build:
-      context: .
-      dockerfile: ./docker/debian/Dockerfile
-    container_name: dataSender
-    ports:
-      - "9998:9999"
-
   localstack:
     image: localstack/localstack
     ports:
-      - "4566-4599:4566-4599"
+      - "127.0.0.1:4566:4566" # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559" # external services port range
     environment:
-      - SERVICES=s3,lambda,dynamodb
-      - DEFAULT_REGION=us-east-1
+      - DEBUG=${DEBUG:-0}
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "localstackVolume:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+
+volumes:
+  localstackVolume:

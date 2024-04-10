@@ -18,6 +18,8 @@ RUN wget --no-verbose -O apache-spark.tgz "https://archive.apache.org/dist/spark
     && tar -xf apache-spark.tgz -C /opt/spark --strip-components=1 \
     && rm apache-spark.tgz
 
+RUN wget --no-verbose -O /opt/spark/jars/s3-2.25.11.jar "https://repo1.maven.org/maven2/software/amazon/awssdk/s3/2.25.11/s3-2.25.11.jar"
+
 
 FROM builder as apache-spark
 

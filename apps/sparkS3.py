@@ -16,18 +16,12 @@ spark = SparkSession.builder \
     .config("spark.executor.extraClassPath", "/opt/spark/jars/s3-2.25.11.jar") \
     .master("spark://spark-master:7077") \
     .getOrCreate()
+
+try:
+    df = spark.read.text("s3a://new-sample-bucket/example_data.txt")
+    df.show()
+    spark.stop()
     
-# Ruta del archivo CSV
-ruta_csv = "sales_data.csv"
-
-# Leer el archivo CSV como un DataFrame de Spark
-datos_df = spark.read.csv(ruta_csv, header=True, sep=",", inferSchema=True)
-
-# Especificar la ruta del bucket de S3 en LocalStack
-s3_bucket = "s3a://bucket-rodrigo"
-
-# Escribir el DataFrame en el bucket de S3
-datos_df.write.csv(s3_bucket, mode="overwrite")
-
-# Cerrar la sesión de Spark
-spark.stop()
+except Exception as e:
+    print("error reading TXT")
+    print(e)

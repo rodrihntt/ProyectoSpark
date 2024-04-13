@@ -15,3 +15,11 @@ bucket_name = 'bucket-rodrigo'
 s3.create_bucket(Bucket=bucket_name)
 
 print(f"Bucket '{bucket_name}' created successfully.")
+
+# Define the bucket name
+bucket_name = 'bucket-rodrigo-clean'
+
+# Create the bucket
+s3.create_bucket(Bucket=bucket_name)
+
+print(f"Bucket '{bucket_name}' created successfully.")

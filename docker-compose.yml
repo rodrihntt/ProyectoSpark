@@ -99,7 +99,15 @@ services:
     volumes:
       - "localstackVolume:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-
+'''
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      '''
 volumes:
   localstackVolume:
   postgres:

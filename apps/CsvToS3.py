@@ -18,7 +18,7 @@ spark = SparkSession.builder \
 
 try:
     # Leer el archivo CSV
-    df = spark.read.option("delimiter", ",").option("header", True).csv("/opt/spark-data/shop_data.csv")
+    df = spark.read.option("delimiter", ",").option("header", True).csv("/opt/spark-data/sales_data.csv")
     
     # Escribir el DataFrame en S3
     df.write \
@@ -26,7 +26,7 @@ try:
         .option('fs.s3a.committer.staging.conflict-mode', 'replace') \
         .option("fs.s3a.fast.upload.buffer", "bytebuffer") \
         .mode('overwrite') \
-        .csv(path='s3a://bucket-rodrigo/shop_data.csv')
+        .csv(path='s3a://bucket-rodrigo/sales_data.csv')
 
     spark.stop()
     

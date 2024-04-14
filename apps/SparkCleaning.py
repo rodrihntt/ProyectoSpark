@@ -24,8 +24,14 @@ try:
     # Leer los archivos CSV desde el bucket S3
     df = spark.read.option("header", "true").csv(s3_input_path)
 
+    # Eliminar filas con valores perdidos en alguna columna
+    df_cleaned = df.dropna(how='any')
+    
     # Realizar la limpieza de datos (eliminar valores nulos)
-    df_cleaned = df.dropna()
+    df_cleaned = df_cleaned.dropna()
+    
+    # Eliminar filas duplicadas
+    df_cleaned = df_cleaned.dropDuplicates()
 
     # Escribir el DataFrame de PostgreSQL en S3
     df_cleaned.write \
